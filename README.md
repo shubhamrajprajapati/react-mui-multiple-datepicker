@@ -28,48 +28,81 @@ npm i -S @ambiot/material-ui-multiple-dates-picker react @mui/material @mui/lab 
 ## Usage example
 
 ```javascript
-import MultipleDatesPicker from '@ambiot/material-ui-multiple-dates-picker'
+import MultipleDatesPicker from "@ambiot/material-ui-multiple-dates-picker";
 
 const Example = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const minSelectableDate = new Date(); // Today’s date
+  const maxSelectableDate = new Date();
+  maxSelectableDate.setMonth(maxSelectableDate.getMonth() + 6); // 6 months from now
 
   return (
     <div>
-      <Button onClick={() => setOpen(!open)}>
-        Select Dates
-      </Button>
+      <Button onClick={() => setOpen(!open)}>Select Dates</Button>
       <MultipleDatesPicker
         open={open}
         selectedDates={[]}
         onCancel={() => setOpen(false)}
-        onSubmit={dates => console.log('selected dates', dates)}
+        onSubmit={(dates) => console.log("selected dates", dates)}
+        showSelectedDates={true} // Optional
+        minSelectableDate={minSelectableDate} // Optional
+        maxSelectableDate={maxSelectableDate} // Optional
       />
     </div>
-  )
-}
+  );
+};
 ```
 
 ## API
 
 ### MultipleDatesPicker (default export)
 
-| Prop Name          | Type            | Default                                           | Description                                                  |
-| ------------------ | --------------- | ------------------------------------------------- | ------------------------------------------------------------ |
-| open               | bool, required  | `false`                                           | Is Date Picker Dialog open or not                            |
-| selectedDates      | Array of `Date` | `[]`                                              | `MultipleDatesPicker` uses its own internal array of selected date and sends it only when user clicks Submit button. But you can still use this variable to pass initial value to it — array will be copied. |
-| disabledDates | Array of `Date`          | `null`                                    | An array of dates to disable. They will appear gray and user won't be able to select them.                             |
-| onCancel           | func, required  | `null`                                            | Fires when user clicks Cancel button. You need to handle closing the picker when this handler fires. |
-| onSubmit           | func, required  | `null`                                            | Fires when user clicks Submit button with only one parameter: array of selected `Date`s: `onSubmit(selectedDates)`. You need to handle closing the picker when this handler fires. |
-| readOnly           | bool            | `false`                                           | Is Date Picker interactive. Use this if you just want to display dates to the user. Submit button will be hidden and `onCancel` will be fired when user presses "Dismiss" button. |
-| cancelButtonText   | string          | if `readOnly` then "Dismiss" is not then "Cancel" | Cancel button title                                          |
-| submitButtonText   | string          | Submit                                            | Submit button title                                          |
-| selectedDatesTitle | string          | Selected Dates                                    | Selected dates list header title                             |
-| DialogProps | object          | {}                                    | properties for the Dialog component. [See more](https://mui.com/material-ui/api/dialog/#props)                             |
+| Prop Name          | Type              | Default                                                  | Description                                                                                                                                                                                                                                      |
+| ------------------ | ----------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| open               | bool, required    | `false`                                                  | Is Date Picker Dialog open or not                                                                                                                                                                                                                |
+| selectedDates      | Array of `Date`   | `[]`                                                     | `MultipleDatesPicker` uses its own internal array of selected date and sends it only when user clicks Submit button. But you can still use this variable to pass initial value to it — array will be copied.                                     |
+| disabledDates      | Array of `Date`   | `null`                                                   | An array of dates to disable. They will appear gray and user won't be able to select them.                                                                                                                                                       |
+| onCancel           | func, required    | `null`                                                   | Fires when user clicks Cancel button. You need to handle closing the picker when this handler fires.                                                                                                                                             |
+| onSubmit           | func, required    | `null`                                                   | Fires when user clicks Submit button with only one parameter: array of selected `Date`s: `onSubmit(selectedDates)`. You need to handle closing the picker when this handler fires.                                                               |
+| readOnly           | bool              | `false`                                                  | Is Date Picker interactive. Use this if you just want to display dates to the user. Submit button will be hidden and `onCancel` will be fired when user presses "Dismiss" button.                                                                |
+| cancelButtonText   | string            | if `readOnly` then "Dismiss" is not then "Cancel"        | Cancel button title                                                                                                                                                                                                                              |
+| submitButtonText   | string            | Submit                                                   | Submit button title                                                                                                                                                                                                                              |
+| selectedDatesTitle | string            | Selected Dates                                           | Selected dates list header title                                                                                                                                                                                                                 |
+| showSelectedDates  | bool (optional)   | `true`                                                   | Controls the visibility of the "Selected Dates" section within the `MultipleDatesPicker` component. When set to `true`, the section displaying the selected dates will be visible. Setting it to `false` will hide this section.                 |
+| minSelectableDate  | `Date` (optional) | `new Date().setFullYear(new Date().getFullYear() - 100)` | Specifies the earliest date that can be selected in the `MultipleDatesPicker` component. By default, this is set to 100 years before the current date, providing a broad range of selectable dates. If provided, it overrides the default value. |
+| maxSelectableDate  | `Date` (optional) | `new Date().setFullYear(new Date().getFullYear() + 100)` | Specifies the latest date that can be selected in the `MultipleDatesPicker` component. By default, this is set to 100 years after the current date, providing a broad range of selectable dates. If provided, it overrides the default value.    |
+| DialogProps        | object            | `{}`                                                     | Properties for the Dialog component. [See more](https://mui.com/material-ui/api/dialog/#props)                                                                                                                                                   |
 
 ## To-Do
 
-* [x] Add locale support
-## Changelog of version 1.0.2
+- [x] Add locale support
+
+## Changelog of version 1.0.4
+
+### Added
+
+- **New Feature**: Added `showSelectedDates` prop to control visibility of the "Selected Dates" section.
+- **New Props**: Added `minSelectableDate` and `maxSelectableDate` props to define the range of selectable dates in the component.
+  - **`minSelectableDate`**: Sets the earliest date that can be selected. Default value is 100 years before the current date (`new Date().setFullYear(new Date().getFullYear() - 100)`).
+  - **`maxSelectableDate`**: Sets the latest date that can be selected. Default value is 100 years after the current date (`new Date().setFullYear(new Date().getFullYear() + 100)`).
+- **Mobile Responsive Enhancements**:
+  - Improved layout to ensure better usability on small devices.
+  - Applied a light green background color to highlight the current day for better visibility.
+  - Fixed the background color of the current selected date.
+
+### Deprecated
+
+- No deprecations in this release.
+
+### Removed
+
+- No removals in this release.
+
+### Security
+
+- No security updates in this release.
+
+## Changelog of version 1.0.3
 
 1. Migrated to react 18 and mui 5.
 2. React and mui moved to peerDependencies.
@@ -88,4 +121,3 @@ I don't have enough time to maintain this library, so pull requests will be grea
 7. Library is located under `app/src/lib`. Edit the code and watch the changes in the browser.
 
 Happy coding and thank you for your help!
-
