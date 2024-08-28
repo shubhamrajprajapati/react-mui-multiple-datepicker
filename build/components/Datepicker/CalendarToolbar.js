@@ -54,7 +54,7 @@ var CalendarToolbar = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var displayDate = this.props.displayDate;
-      var dateTimeFormatted = (0, _moment["default"])(displayDate).format('MMMM YYYY');
+      var dateTimeFormatted = (0, _moment["default"])(displayDate).format("MMMM YYYY");
       // const dateTimeFormatted = new dateTimeFormat('en-US', {
       //   month: 'long',
       //   year: 'numeric'
@@ -68,12 +68,26 @@ var CalendarToolbar = /*#__PURE__*/function (_Component) {
         my: 1
       }, /*#__PURE__*/_react["default"].createElement(_material.IconButton, {
         disabled: !this.props.prevMonth,
-        onClick: this.handleTouchTapPrevMonth
+        onClick: this.handleTouchTapPrevMonth,
+        sx: {
+          padding: {
+            xs: "5px",
+            md: "8px",
+            lg: "12px"
+          }
+        }
       }, /*#__PURE__*/_react["default"].createElement(_ArrowLeft["default"], null)), /*#__PURE__*/_react["default"].createElement(_material.Typography, {
         variant: "subtitle1"
       }, (0, _utils.capitalizeFirstLetter)(dateTimeFormatted)), /*#__PURE__*/_react["default"].createElement(_material.IconButton, {
         disabled: !this.props.nextMonth,
-        onClick: this.handleTouchTapNextMonth
+        onClick: this.handleTouchTapNextMonth,
+        sx: {
+          padding: {
+            xs: "5px",
+            md: "8px",
+            lg: "12px"
+          }
+        }
       }, /*#__PURE__*/_react["default"].createElement(_ArrowRight["default"], null)));
     }
   }]);

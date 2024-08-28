@@ -56,20 +56,23 @@ var Week = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var _this2 = this;
-      var dateInNumberic = new _dateUtils.dateTimeFormat('en-US', {
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric'
+      var dateInNumberic = new _dateUtils.dateTimeFormat("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric"
       });
       var dateToday = dateInNumberic.format(new Date());
-      var dayInNumeric = new _dateUtils.dateTimeFormat('en-US', {
-        day: 'numeric'
+      var dayInNumeric = new _dateUtils.dateTimeFormat("en-US", {
+        day: "numeric"
       });
       return /*#__PURE__*/_react["default"].createElement(_material.Box, {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        height: 34,
+        height: {
+          xs: 30,
+          sm: 34
+        },
         marginBottom: 2
       }, this.props.week.map(function (day, i) {
         if (day) {
@@ -85,22 +88,28 @@ var Week = /*#__PURE__*/function (_Component) {
               _this2.onSelect(day);
             },
             isToday: isToday,
-            xs: {
-              margin: "0 2px"
-            },
             sx: {
-              margin: '0 8px'
+              mx: {
+                xs: 0.5,
+                sm: 1
+              }
             }
           });
         }
         return /*#__PURE__*/_react["default"].createElement(_material.Box, {
           key: "blank-".concat(i),
-          xs: {
-            margin: "0 2px"
+          mx: {
+            xs: 0.5,
+            sm: 1
           },
-          mx: 1,
-          width: 36,
-          height: 36
+          width: {
+            xs: 32,
+            sm: 34
+          },
+          height: {
+            xs: 32,
+            sm: 34
+          }
         });
       }));
     }

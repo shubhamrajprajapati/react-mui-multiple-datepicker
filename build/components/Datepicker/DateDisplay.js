@@ -71,17 +71,19 @@ var DateDisplayWithoutTheme = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
         theme = _this$props.theme,
         selectedDates = _this$props.selectedDates,
-        readOnly = _this$props.readOnly;
-      console.log('fdgdfgfdg', theme);
+        readOnly = _this$props.readOnly,
+        showSelectedDates = _this$props.showSelectedDates;
+      // console.log('fdgdfgfdg', theme)
+
       return /*#__PURE__*/_react["default"].createElement(_material.Box, {
         width: 240,
         backgroundColor: theme.palette.background["default"],
         flexDirection: "column",
         sx: {
-          display: {
-            xs: 'none',
-            sm: 'flex'
-          }
+          display: showSelectedDates ? {
+            xs: "none",
+            sm: "flex"
+          } : "none"
         }
       }, /*#__PURE__*/_react["default"].createElement(_material.Box, {
         margin: 2,
@@ -93,12 +95,12 @@ var DateDisplayWithoutTheme = /*#__PURE__*/function (_Component) {
         variant: "subtitle1"
       }, this.props.selectedDatesTitle), /*#__PURE__*/_react["default"].createElement(_material.Typography, {
         variant: "subtitle1",
-        color: readOnly ? 'textSecondary' : 'primary'
+        color: readOnly ? "textSecondary" : "primary"
       }, selectedDates.length)), /*#__PURE__*/_react["default"].createElement(_material.List, {
         dense: true,
         style: {
-          flex: '1',
-          overflowY: 'auto'
+          flex: "1",
+          overflowY: "auto"
         }
       }, selectedDates.map(function (date, index) {
         return /*#__PURE__*/_react["default"].createElement(_material.ListItem, {

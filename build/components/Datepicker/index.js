@@ -29,23 +29,21 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function initState(selectedDates) {
   return {
-    selectedDates: selectedDates ? _toConsumableArray(selectedDates) : [],
-    minDate: null,
-    maxDate: null
+    selectedDates: selectedDates ? _toConsumableArray(selectedDates) : []
   };
 }
 function reducer(state, action) {
   switch (action.type) {
-    case 'setSelectedDates':
+    case "setSelectedDates":
       return _objectSpread(_objectSpread({}, state), {}, {
         selectedDates: action.payload
       });
     default:
-      return new Error('wrong action type in multiple date picker reducer');
+      return new Error("wrong action type in multiple date picker reducer");
   }
 }
 var DatePicker = function DatePicker(_ref) {
-  var _DialogProps$PaperPro, _DialogProps$PaperPro2, _DialogProps$PaperPro3;
+  var _DialogProps$PaperPro;
   var open = _ref.open,
     readOnly = _ref.readOnly,
     onCancel = _ref.onCancel,
@@ -55,32 +53,35 @@ var DatePicker = function DatePicker(_ref) {
     DialogProps = _ref.DialogProps,
     cancelButtonText = _ref.cancelButtonText,
     _ref$submitButtonText = _ref.submitButtonText,
-    submitButtonText = _ref$submitButtonText === void 0 ? 'Submit' : _ref$submitButtonText,
+    submitButtonText = _ref$submitButtonText === void 0 ? "Submit" : _ref$submitButtonText,
     _ref$selectedDatesTit = _ref.selectedDatesTitle,
-    selectedDatesTitle = _ref$selectedDatesTit === void 0 ? 'Selected Dates' : _ref$selectedDatesTit;
+    selectedDatesTitle = _ref$selectedDatesTit === void 0 ? "Selected Dates" : _ref$selectedDatesTit,
+    _ref$showSelectedDate = _ref.showSelectedDates,
+    showSelectedDates = _ref$showSelectedDate === void 0 ? true : _ref$showSelectedDate,
+    _ref$minSelectableDat = _ref.minSelectableDate,
+    minSelectableDate = _ref$minSelectableDat === void 0 ? null : _ref$minSelectableDat,
+    _ref$maxSelectableDat = _ref.maxSelectableDate,
+    maxSelectableDate = _ref$maxSelectableDat === void 0 ? null : _ref$maxSelectableDat;
   var theme = (0, _material.useTheme)();
   if (cancelButtonText == null) {
-    cancelButtonText = readOnly ? 'Dismiss' : 'Cancel';
+    cancelButtonText = readOnly ? "Dismiss" : "Cancel";
   }
   var _useReducer = (0, _react.useReducer)(reducer, outerSelectedDates, initState),
     _useReducer2 = _slicedToArray(_useReducer, 2),
-    _useReducer2$ = _useReducer2[0],
-    selectedDates = _useReducer2$.selectedDates,
-    minDate = _useReducer2$.minDate,
-    maxDate = _useReducer2$.maxDate,
+    selectedDates = _useReducer2[0].selectedDates,
     dispatch = _useReducer2[1];
   var onSelect = (0, _react.useCallback)(function (day) {
     if (readOnly) return;
     if (_utils["default"].dateIn(selectedDates, day)) {
       dispatch({
-        type: 'setSelectedDates',
+        type: "setSelectedDates",
         payload: selectedDates.filter(function (date) {
           return !_utils["default"].isSameDay(date, day);
         })
       });
     } else {
       dispatch({
-        type: 'setSelectedDates',
+        type: "setSelectedDates",
         payload: [].concat(_toConsumableArray(selectedDates), [day])
       });
     }
@@ -92,13 +93,13 @@ var DatePicker = function DatePicker(_ref) {
       newDates.splice(index, 1);
     }
     dispatch({
-      type: 'setSelectedDates',
+      type: "setSelectedDates",
       payload: newDates
     });
   }, [selectedDates, dispatch, readOnly]);
   var dismiss = (0, _react.useCallback)(function () {
     dispatch({
-      type: 'setSelectedDates',
+      type: "setSelectedDates",
       payload: []
     });
     onCancel();
@@ -115,7 +116,7 @@ var DatePicker = function DatePicker(_ref) {
   (0, _react.useEffect)(function () {
     if (open) {
       dispatch({
-        type: 'setSelectedDates',
+        type: "setSelectedDates",
         payload: outerSelectedDates != null ? outerSelectedDates : []
       });
     }
@@ -124,12 +125,15 @@ var DatePicker = function DatePicker(_ref) {
     open: open,
     PaperProps: _objectSpread(_objectSpread({}, DialogProps === null || DialogProps === void 0 ? void 0 : DialogProps.PaperProps), {}, {
       sx: _objectSpread(_objectSpread({}, DialogProps === null || DialogProps === void 0 ? void 0 : (_DialogProps$PaperPro = DialogProps.PaperProps) === null || _DialogProps$PaperPro === void 0 ? void 0 : _DialogProps$PaperPro.sx), {}, {
-        minHeight: 482,
+        // minHeight: 482,
         maxHeight: 482,
-        display: 'flex',
-        xs: _objectSpread(_objectSpread({}, DialogProps === null || DialogProps === void 0 ? void 0 : (_DialogProps$PaperPro2 = DialogProps.PaperProps) === null || _DialogProps$PaperPro2 === void 0 ? void 0 : (_DialogProps$PaperPro3 = _DialogProps$PaperPro2.sx) === null || _DialogProps$PaperPro3 === void 0 ? void 0 : _DialogProps$PaperPro3.xs), {}, {
-          margin: theme.spacing(1)
-        })
+        display: "flex",
+        width: "100%",
+        maxWidth: "fit-content",
+        margin: {
+          xs: theme.spacing(0),
+          sm: theme.spacing(4)
+        }
       })
     })
   }), /*#__PURE__*/_react["default"].createElement(_Calendar["default"], {
@@ -137,14 +141,15 @@ var DatePicker = function DatePicker(_ref) {
     disabledDates: disabledDates,
     onSelect: onSelect,
     onRemoveAtIndex: onRemoveAtIndex,
-    minDate: minDate,
-    maxDate: maxDate,
+    minDate: minSelectableDate,
+    maxDate: maxSelectableDate,
     onCancel: handleCancel,
     onOk: handleOk,
     readOnly: readOnly,
     cancelButtonText: cancelButtonText,
     submitButtonText: submitButtonText,
-    selectedDatesTitle: selectedDatesTitle
+    selectedDatesTitle: selectedDatesTitle,
+    showSelectedDates: showSelectedDates
   }));
 };
 DatePicker.propTypes = {
@@ -155,7 +160,10 @@ DatePicker.propTypes = {
   selectedDates: _propTypes["default"].array,
   cancelButtonText: _propTypes["default"].string,
   submitButtonText: _propTypes["default"].string,
-  selectedDatesTitle: _propTypes["default"].string
+  selectedDatesTitle: _propTypes["default"].string,
+  showSelectedDates: _propTypes["default"].bool,
+  minSelectableDate: _propTypes["default"].instanceOf(Date),
+  maxSelectableDate: _propTypes["default"].instanceOf(Date)
 };
 var _default = DatePicker;
 exports["default"] = _default;

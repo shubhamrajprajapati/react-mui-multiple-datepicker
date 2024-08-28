@@ -35,7 +35,8 @@ var Calendar = function Calendar(_ref) {
     onRemoveAtIndex = _ref.onRemoveAtIndex,
     cancelButtonText = _ref.cancelButtonText,
     submitButtonText = _ref.submitButtonText,
-    selectedDatesTitle = _ref.selectedDatesTitle;
+    selectedDatesTitle = _ref.selectedDatesTitle,
+    showSelectedDates = _ref.showSelectedDates;
   var calendar = (0, _react.useRef)(null);
   var _useState = (0, _react.useState)(function () {
       return _dateUtils.defaultUtils.getFirstDayOfMonth(initialDate || new Date());
@@ -61,7 +62,10 @@ var Calendar = function Calendar(_ref) {
     flex: "1",
     display: "flex",
     maxHeight: "100%",
-    overflow: "hidden"
+    overflow: {
+      xs: "auto",
+      sm: "hidden"
+    }
   }, /*#__PURE__*/_react["default"].createElement(_material.Box, {
     display: "flex",
     flexDirection: "column",
@@ -96,7 +100,8 @@ var Calendar = function Calendar(_ref) {
     selectedDatesTitle: selectedDatesTitle,
     selectedDates: selectedDates,
     readOnly: readOnly,
-    onRemoveAtIndex: onRemoveAtIndex
+    onRemoveAtIndex: onRemoveAtIndex,
+    showSelectedDates: showSelectedDates
   }));
 };
 var _default = Calendar;

@@ -51,7 +51,14 @@ var CalendarActionButton = function CalendarActionButton(_ref) {
     onOk = _ref.onOk,
     readOnly = _ref.readOnly;
   var theme = (0, _material.useTheme)();
-  return /*#__PURE__*/_react["default"].createElement(_material.DialogActions, null, /*#__PURE__*/_react["default"].createElement(_material.Button, {
+  return /*#__PURE__*/_react["default"].createElement(_material.DialogActions, {
+    sx: {
+      justifyContent: {
+        xs: "center",
+        sm: "end"
+      }
+    }
+  }, /*#__PURE__*/_react["default"].createElement(_material.Button, {
     onClick: onCancel,
     sx: {
       color: theme.palette.text.primary,
