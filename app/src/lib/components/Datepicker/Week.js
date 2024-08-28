@@ -1,59 +1,62 @@
-import React, { Component } from 'react'
-import { Box } from '@mui/material'
-import DateUtilities from './utils'
-import { dateTimeFormat } from './dateUtils'
-import Circle from './Circle'
+import React, { Component } from "react";
+import { Box } from "@mui/material";
+import DateUtilities from "./utils";
+import { dateTimeFormat } from "./dateUtils";
+import Circle from "./Circle";
 
 class Week extends Component {
-  onSelect = day => {
-    if (!this.isDisabled(day)) this.props.onSelect(day)
-  }
+  onSelect = (day) => {
+    if (!this.isDisabled(day)) this.props.onSelect(day);
+  };
 
-  isDisabled = day => {
-    if (this.props.readOnly) return true
+  isDisabled = (day) => {
+    if (this.props.readOnly) return true;
 
-    const disabledDate = this.props.disabledDates && this.props.disabledDates.find(d => DateUtilities.isSameDay(d, day))
-    if (disabledDate != null) return true
+    const disabledDate =
+      this.props.disabledDates &&
+      this.props.disabledDates.find((d) => DateUtilities.isSameDay(d, day));
+    if (disabledDate != null) return true;
 
-    let minDate = this.props.minDate
+    let minDate = this.props.minDate;
 
-    let maxDate = this.props.maxDate
+    let maxDate = this.props.maxDate;
 
     return (
       (minDate && DateUtilities.isBefore(day, minDate)) ||
       (maxDate && DateUtilities.isAfter(day, maxDate))
-    )
-  }
+    );
+  };
 
-  isSelected = day =>
-    this.props.selectedDates && DateUtilities.dateIn(this.props.selectedDates, day)
+  isSelected = (day) =>
+    this.props.selectedDates &&
+    DateUtilities.dateIn(this.props.selectedDates, day);
 
-  render () {
-    const dateInNumberic = new dateTimeFormat('en-US', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    })
+  render() {
+    const dateInNumberic = new dateTimeFormat("en-US", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
 
-    const dateToday = dateInNumberic.format(new Date())
+    const dateToday = dateInNumberic.format(new Date());
 
-    const dayInNumeric = new dateTimeFormat('en-US', {
-      day: 'numeric'
-    })
+    const dayInNumeric = new dateTimeFormat("en-US", {
+      day: "numeric",
+    });
 
     return (
       <Box
-        display='flex'
-        flexDirection='row'
-        justifyContent='space-between'
-        height={34}
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        height={{ xs: 30, sm: 34 }}
         marginBottom={2}
       >
         {this.props.week.map((day, i) => {
           if (day) {
-            const isToday = day && dateToday === dateInNumberic.format(day)
-            const isDisabled = this.isDisabled(day)
-            const isSelected = this.isSelected(day)
+            const isToday = day && dateToday === dateInNumberic.format(day);
+            const isDisabled = this.isDisabled(day);
+            const isSelected = this.isSelected(day);
 
             return (
               <Circle
@@ -61,34 +64,28 @@ class Week extends Component {
                 label={dayInNumeric.format(day)}
                 disabled={isDisabled}
                 checked={isSelected}
-                onCheck={e => {
-                  this.onSelect(day)
+                onCheck={(e) => {
+                  this.onSelect(day);
                 }}
                 isToday={isToday}
-                xs={{
-                  margin: `0 2px`,
-                }}
                 sx={{
-                  margin: '0 8px'
+                  mx: { xs: 0.5, sm: 1 },
                 }}
               />
-            )
+            );
           }
           return (
-            <Box 
+            <Box
               key={`blank-${i}`}
-              xs={{
-                margin: `0 2px`,
-              }}
-              mx={1}
-              width={36}
-              height={36}
+              mx={{ xs: 0.5, sm: 1 }}
+              width={{ xs: 32, sm: 34 }}
+              height={{ xs: 32, sm: 34 }}
             />
-          )
+          );
         })}
       </Box>
-    )
+    );
   }
 }
 
-export default Week
+export default Week;

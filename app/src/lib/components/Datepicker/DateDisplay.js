@@ -31,35 +31,40 @@ class DateDisplayWithoutTheme extends Component {
   }
 
   render () {
-    const { theme, selectedDates, readOnly } = this.props
-    console.log('fdgdfgfdg', theme)
+    const { theme, selectedDates, readOnly, showSelectedDates } = this.props;
+    // console.log('fdgdfgfdg', theme)
 
     return (
       <Box
         width={240}
         backgroundColor={theme.palette.background.default}
-        flexDirection='column'
+        flexDirection="column"
         sx={{
-          display: { xs: 'none', sm: 'flex' }
+          display: showSelectedDates ? { xs: "none", sm: "flex" } : "none",
         }}
       >
         <Box
           margin={2}
-          display='flex'
-          alignItems='center'
-          alignContent='center'
-          justifyContent='space-between'
+          display="flex"
+          alignItems="center"
+          alignContent="center"
+          justifyContent="space-between"
         >
-          <Typography variant='subtitle1'>{this.props.selectedDatesTitle}</Typography>
-          <Typography variant='subtitle1' color={readOnly ? 'textSecondary' : 'primary'}>
+          <Typography variant="subtitle1">
+            {this.props.selectedDatesTitle}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color={readOnly ? "textSecondary" : "primary"}
+          >
             {selectedDates.length}
           </Typography>
         </Box>
-        <List 
-          dense 
+        <List
+          dense
           style={{
-            flex: '1',
-            overflowY: 'auto'
+            flex: "1",
+            overflowY: "auto",
           }}
         >
           {selectedDates.map((date, index) => (
@@ -70,12 +75,12 @@ class DateDisplayWithoutTheme extends Component {
               onClick={this.removeDateAtIndex(index)}
             >
               <ListItemText primary={this.getFormatedDate(date)} />
-              {!readOnly && <DeleteIcon color='error' />}
+              {!readOnly && <DeleteIcon color="error" />}
             </ListItem>
           ))}
         </List>
       </Box>
-    )
+    );
   }
 }
 

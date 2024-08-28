@@ -42,7 +42,7 @@ const CalendarActionButton = ({ cancelButtonText, submitButtonText, onCancel, on
   const theme = useTheme()
 
   return (
-    <DialogActions>
+    <DialogActions sx={{justifyContent: {xs: "center", sm: "end"}}}>
       <Button
         onClick={onCancel}
         sx={{

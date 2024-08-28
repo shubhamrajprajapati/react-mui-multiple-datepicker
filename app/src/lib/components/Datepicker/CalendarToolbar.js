@@ -1,41 +1,41 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Box, IconButton, Typography } from '@mui/material'
-import LeftIcon from '@mui/icons-material/ArrowLeft'
-import RightIcon from '@mui/icons-material/ArrowRight'
-import moment from 'moment'
-import { capitalizeFirstLetter } from './utils'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Box, IconButton, Typography } from "@mui/material";
+import LeftIcon from "@mui/icons-material/ArrowLeft";
+import RightIcon from "@mui/icons-material/ArrowRight";
+import moment from "moment";
+import { capitalizeFirstLetter } from "./utils";
 class CalendarToolbar extends Component {
   static propTypes = {
     displayDate: PropTypes.object.isRequired,
     nextMonth: PropTypes.bool,
     onMonthChange: PropTypes.func,
-    prevMonth: PropTypes.bool
-  }
+    prevMonth: PropTypes.bool,
+  };
 
   static defaultProps = {
     nextMonth: true,
-    prevMonth: true
-  }
+    prevMonth: true,
+  };
 
-  handleTouchTapPrevMonth = e => {
-    e.preventDefault()
+  handleTouchTapPrevMonth = (e) => {
+    e.preventDefault();
     if (this.props.onMonthChange) {
-      this.props.onMonthChange(-1)
+      this.props.onMonthChange(-1);
     }
-  }
+  };
 
-  handleTouchTapNextMonth = e => {
-    e.preventDefault()
+  handleTouchTapNextMonth = (e) => {
+    e.preventDefault();
     if (this.props.onMonthChange) {
-      this.props.onMonthChange(1)
+      this.props.onMonthChange(1);
     }
-  }
+  };
 
-  render () {
-    const { displayDate } = this.props
+  render() {
+    const { displayDate } = this.props;
 
-    const dateTimeFormatted = moment(displayDate).format('MMMM YYYY')
+    const dateTimeFormatted = moment(displayDate).format("MMMM YYYY");
     // const dateTimeFormatted = new dateTimeFormat('en-US', {
     //   month: 'long',
     //   year: 'numeric'
@@ -43,22 +43,32 @@ class CalendarToolbar extends Component {
 
     return (
       <Box
-        display='flex'
-        alignItems='center'
-        alignContent='center'
-        justifyContent='space-between'
+        display="flex"
+        alignItems="center"
+        alignContent="center"
+        justifyContent="space-between"
         my={1}
       >
-        <IconButton disabled={!this.props.prevMonth} onClick={this.handleTouchTapPrevMonth}>
+        <IconButton
+          disabled={!this.props.prevMonth}
+          onClick={this.handleTouchTapPrevMonth}
+          sx={{ padding: { xs: "5px", md: "8px", lg: "12px" } }}
+        >
           <LeftIcon />
         </IconButton>
-        <Typography variant='subtitle1'>{capitalizeFirstLetter(dateTimeFormatted)}</Typography>
-        <IconButton disabled={!this.props.nextMonth} onClick={this.handleTouchTapNextMonth}>
+        <Typography variant="subtitle1">
+          {capitalizeFirstLetter(dateTimeFormatted)}
+        </Typography>
+        <IconButton
+          disabled={!this.props.nextMonth}
+          onClick={this.handleTouchTapNextMonth}
+          sx={{ padding: { xs: "5px", md: "8px", lg: "12px" } }}
+        >
           <RightIcon />
         </IconButton>
       </Box>
-    )
+    );
   }
 }
 
-export default CalendarToolbar
+export default CalendarToolbar;

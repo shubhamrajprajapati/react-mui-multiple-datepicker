@@ -3,15 +3,17 @@ import { createTheme as createMuiTheme } from '@mui/material/styles'
 import MuiThemeProvider from '@mui/material/styles/ThemeProvider'
 import orange from '@mui/material/colors/orange'
 import purple from '@mui/material/colors/purple'
+import green from '@mui/material/colors/green'
 
 function createTheme (light) {
   const theme = {
     palette: {
-      mode: light ? 'light' : 'dark',
+      mode: light ? "light" : "dark",
       primary: orange,
-      secondary: purple
-    }
-  }
+      secondary: purple,
+      today: green[50],
+    },
+  };
 
   return createMuiTheme(theme)
 }

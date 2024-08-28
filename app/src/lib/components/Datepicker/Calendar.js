@@ -20,52 +20,41 @@ const Calendar = ({
   onRemoveAtIndex,
   cancelButtonText,
   submitButtonText,
-  selectedDatesTitle
+  selectedDatesTitle,
+  showSelectedDates
 }) => {
-  const calendar = useRef(null)
+  const calendar = useRef(null);
 
   const [displayDate, setDisplayDate] = useState(() =>
     utils.getFirstDayOfMonth(initialDate || new Date())
-  )
+  );
 
   const handleMonthChange = useCallback(
-    months => {
-      setDisplayDate(displayDate => utils.addMonths(displayDate, months))
+    (months) => {
+      setDisplayDate((displayDate) => utils.addMonths(displayDate, months));
     },
     [setDisplayDate]
-  )
+  );
 
-  useEffect(
-    () => {
-      setDisplayDate(utils.getFirstDayOfMonth(initialDate || new Date()))
-    },
-    [initialDate]
-  )
+  useEffect(() => {
+    setDisplayDate(utils.getFirstDayOfMonth(initialDate || new Date()));
+  }, [initialDate]);
 
-  maxDate = maxDate || utils.addYears(new Date(), 100)
-  minDate = minDate || utils.addYears(new Date(), -100)
+  maxDate = maxDate || utils.addYears(new Date(), 100);
+  minDate = minDate || utils.addYears(new Date(), -100);
 
   const toolbarInteractions = {
     prevMonth: utils.monthDiff(displayDate, minDate) > 0,
-    nextMonth: utils.monthDiff(displayDate, maxDate) < 0
-  }
+    nextMonth: utils.monthDiff(displayDate, maxDate) < 0,
+  };
 
   return (
-    <Box
-      flex='1'
-      display='flex'
-      maxHeight='100%'
-      overflow='hidden'
-    >
-      <Box
-        display='flex'
-        flexDirection='column'
-        justifyContent='space-between'
-      >
+    <Box flex="1" display="flex" maxHeight="100%" overflow={{xs: "auto", sm: "hidden"}}>
+      <Box display="flex" flexDirection="column" justifyContent="space-between">
         <Box
-          display='flex'
-          justifyContent='space-between'
-          flexDirection='column'
+          display="flex"
+          justifyContent="space-between"
+          flexDirection="column"
           px={1}
         >
           <CalendarToolbar
@@ -100,9 +89,10 @@ const Calendar = ({
         selectedDates={selectedDates}
         readOnly={readOnly}
         onRemoveAtIndex={onRemoveAtIndex}
+        showSelectedDates={showSelectedDates}
       />
     </Box>
-  )
-}
+  );
+};
 
 export default Calendar
